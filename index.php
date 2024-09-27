@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Five Elements Diagnosis Tool</title>
+      <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1 class="page_title">Five Elements Diagnosis Tool</h1>
+
+    <div class="header">
+        <div>Hypo Function</div>
+        <div>Hyper Function</div>
+    </div>
+    <!-- Dropdowns with Labels -->
+    <div class="row">
+        <div class="column left-column">
+            <label class="dropdown-label" for="taste_craving">Taste Craving</label>
+            <select class="dropdown" id="taste_craving">
+                <option>---</option>
+                <option>Sour</option>
+                <option>Bitter</option>
+                <option>Sweet</option>
+                <option>Spicy</option>
+                <option>Salty</option>
+            </select>
+        </div>
+        <div class="column right-column">
+            <label class="dropdown-label" for="taste_dislike">Taste Dislike</label>
+            <select class="dropdown" id="taste_dislike">
+                <option>---</option>
+                <option>Sour</option>
+                <option>Bitter</option>
+                <option>Sweet</option>
+                <option>Spicy</option>
+                <option>Salty</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="column left-column">
+            <label class="dropdown-label" for="less_fluid">Less Fluid</label>
+            <select class="dropdown" id="less_fluid">
+                <option>---</option>
+                <option>Tears</option>
+                <option>Sweat</option>
+                <option>Saliva</option>
+                <option>Mucus</option>
+                <option>Urine</option>
+            </select>
+        </div>
+        <div class="column right-column">
+            <label class="dropdown-label" for="excess_fluid">Excess Fluid</label>
+            <select class="dropdown" id="excess_fluid">
+                <option>---</option>
+                <option>Tears</option>
+                <option>Sweat</option>
+                <option>Saliva</option>
+                <option>Mucus</option>
+                <option>Urine</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="column left-column">
+            <label class="dropdown-label" for="color_like">Color Like</label>
+            <select class="dropdown" id="color_like">
+                <option>---</option>
+                <option>Green</option>
+                <option>Red</option>
+                <option>Yellow</option>
+                <option>White</option>
+                <option>Blue</option>
+            </select>
+        </div>
+        <div class="column right-column">
+            <label class="dropdown-label" for="color_dislike">Color Dislike</label>
+            <select class="dropdown" id="color_dislike">
+                <option>---</option>
+                <option>Green</option>
+                <option>Red</option>
+                <option>Yellow</option>
+                <option>White</option>
+                <option>Blue</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="column left-column">
+            <label class="dropdown-label" for="tissue">Tissue</label>
+            <select class="dropdown" id="tissue">
+                <option>---</option>
+                <option>Tendons/Ligaments</option>
+                <option>Blood Vessels/Nerves</option>
+                <option>Fat/Muscles</option>
+                <option>Skin/Body Hair</option>
+                <option>Bones/Teeth/Head Hair</option>
+            </select>
+        </div>
+        <div class="column right-column">
+            <label class="dropdown-label" for="emotion">Emotion</label>
+            <select class="dropdown" id="emotion">
+                <option>---</option>
+                <option>Anger</option>
+                <option>Joy</option>
+                <option>Overthinking</option>
+                <option>Grief</option>
+                <option>Fear</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="column left-column"></div> <!-- Empty space for layout symmetry -->
+        <div class="column right-column">
+            <label class="dropdown-label" for="sense_organ">Sense Organ</label>
+            <select class="dropdown" id="sense_organ">
+                <option>---</option>
+                <option>Eyes</option>
+                <option>Tongue</option>
+                <option>Mouth</option>
+                <option>Nose</option>
+                <option>Ears</option>
+            </select>
+        </div>
+    </div>
+    <div id="errorMessage" > </div>
+
+    <!-- Summary Section -->
+    <div id="summary" class="summary">
+        Summary of selections will appear here.
+    </div>
+
+    <!-- Five Element Canvas -->
+    <div class="canvas-container">
+        <canvas id="fiveElementsDiagramCanvas" width="400" height="400" style="border:1px solid #fff;"></canvas>
+    </div>
+</div>
+
+<script src="fiveElementsDiagram.js"></script>
+
+<script>
+    const fiveElementsMap = { "Wood": "Normal", "Fire": "Normal", "Earth": "Normal", "Metal": "Normal", "Water": "Normal" };
+    const hyperhypoMap = {"taste_craving": "Hypo", "less_fluid":"Hypo","color_like":"Hypo", "tissue":"Hypo",
+        "taste_dislike": "Hyper","excess_fluid":"Hyper","color_dislike":"Hyper","emotion":"Hyper","sense_organ":"Hyper"
+    }
+    const elementsArray = ["Shoonya", "Wood", "Fire", "Earth", "Metal", "Water"];
+    const allSelectElements = document.querySelectorAll('select');
+    const hypoDropDowns = []
+
+    function updateFiveElements(event) {
+        for (let key in fiveElementsMap) { fiveElementsMap[key] = "Normal"; } // reset all to normal
+        const currentSelect = event.target;
+        const selectedIndex = currentSelect.selectedIndex;
+        document.getElementById('errorMessage').innerHTML = "";
+        for (let i = 0; i < allSelectElements.length; i++) {
+            const selectElement = allSelectElements[i];
+            const selectedIndex = selectElement.selectedIndex;
+            if(selectedIndex > 0){
+            const selectId = selectElement.id;
+            let element = elementsArray[selectedIndex];     
+            let state = hyperhypoMap[selectElement.id];
+            if (fiveElementsMap[element] === "Normal") {
+                fiveElementsMap[element] = state;
+            } 
+            else {
+                // Conflict handling: If trying to set "Hypo" on an already "Hyper" element or vice versa
+                if (fiveElementsMap[element] === "Hypo" && state === "Hyper") {
+                    currentSelect.selectedIndex = 0; // Reset only the conflicting dropdown
+                    document.getElementById('errorMessage').innerHTML = "Cannot set " + element + " to Hyper. It is already set to be Hypo.";
+                    return; // Exit the function
+                }
+                if (fiveElementsMap[element] === "Hyper" && state === "Hypo") {
+                    currentSelect.selectedIndex = 0; // Reset only the conflicting dropdown
+                    document.getElementById('errorMessage').innerHTML = "Cannot set " + element + " to Hypo. It is already set to be Hyper.";
+                    return; // Exit the function
+                }
+            }
+        }
+        }
+        const localMap = { ...fiveElementsMap }; 
+        delete localMap['Shoonya'];
+        updateSummary(localMap);
+        drawFiveElementsDiagram(localMap);
+    }
+
+
+    function updateSummary(localMap) {
+        const summaryElement = document.getElementById('summary');
+        let summaryText = '';
+        
+        for (const [element, state] of Object.entries(localMap)) {
+            if (state !== "Normal") {
+                summaryText += `${element} - ${state}, <br>`;
+            }
+        }
+        summaryElement.innerHTML = summaryText || 'No elements selected.';
+    }
+
+    allSelectElements.forEach(selectElement => {
+    selectElement.addEventListener('change', updateFiveElements);
+    });
+    
+    window.onload = function() {
+    const allSelectElements = document.querySelectorAll('select');
+    for (let i = 0; i < allSelectElements.length; i++) {
+        allSelectElements[i].selectedIndex = 0; // Reset to first option
+    }
+    const fiveElementsMap = {"Wood": "Normal", "Fire": "Normal", "Earth": "Normal", "Metal": "Normal", "Water": "Normal" };
+    drawFiveElementsDiagram(fiveElementsMap);
+    };
+    
+</script>
+
+
+
+</body>
+</html>
+

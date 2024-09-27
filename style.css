@@ -1,0 +1,91 @@
+        body {
+            background-color: #6750A4; /* Purple background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .page_title {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .container {
+        	margin-top:50px;	
+            background-color: white; /* White inner background */
+            padding: 50px 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 900px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .column {
+            flex:1;
+            width: 48%; /* Ensure two columns fit in one row */
+        }
+
+        .left-column {
+            border-right: 1px solid #ccc; /* Add border on the right side */
+            padding-right: 20px;
+        }
+        
+        /* Optional: Add some space between the columns */
+        .right-column {
+            padding-left: 20px; /* Add padding to separate from the border */
+        }
+
+        .dropdown {
+            width: 100%;
+            padding: 5px;
+        }
+
+        .dropdown-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .summary {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            height: auto;
+            min-height: 50px;
+        }
+
+        .canvas-container {
+            display: flex; /* Enable flexbox */
+            justify-content: center; /* Center horizontally */
+            
+        }
+
+        #fiveElementCanvas {
+            border: 1px solid #ccc;
+            background-color: #ffffff;
+        }
+
+        #errorMessage {
+              color:red;  
+        }
+
+        canvas {
+            max-width: 100%; /* Ensure the canvas doesn't exceed the container */
+            height: auto; /* Maintain aspect ratio */
+        }
