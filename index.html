@@ -115,6 +115,30 @@
                 <option>Fear</option>
             </select>
         </div>
+
+        <div class="container">
+        <div class="dropdown">
+            <label for="waveform-select">Select Waveform:</label>
+            <select id="waveform-select">
+                <option value="sine">Sine Wave</option>
+                <option value="square">Square Wave</option>
+                <option value="triangle">Triangular Wave</option>
+                <option value="sawtooth">Sawtooth Wave</option>
+            </select>
+        </div>
+        <div class="buttons">
+            <button class="button green" onclick="playChord('C Major', 8)">C Major/1st partial 8th partial</button>
+            <button class="button red" onclick="playChord('A Major', 7)">A Major/7th partial</button>
+            <button class="button yellow" onclick="playChord('E Major', 5)">E Major/5th partial</button>
+            <button class="button white" onclick="playChord('D Minor', 9)">D Minor/9th partial</button>
+            <button class="button blue" onclick="playChord('C Minor', 6)">C Minor/6th partial</button>
+        </div>
+        <div class="gain-slider">
+            <label for="gain-slider">Gain:</label>
+            <input type="range" id="gain-slider" min="0" max="1" step="0.01" value="0.5">
+        </div>
+        <button class="stop-button" onclick="stopSound()">Stop</button>
+    </div>
     </div>
 
     <div class="row">
@@ -145,6 +169,7 @@
 </div>
 
 <script src="fiveElementsDiagram.js"></script>
+<script src="audio.js"></script>
 
 <script>
     const fiveElementsMap = { "Wood": "Normal", "Fire": "Normal", "Earth": "Normal", "Metal": "Normal", "Water": "Normal" };
