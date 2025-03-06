@@ -12,7 +12,13 @@
             text-align: center;
             margin-top: 20px;
         }
-
+.parent-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Optional: centers the child containers horizontally */
+            gap: 20px; /* Optional: adds some space between the child containers */
+        }
+     
         .container {
         	margin-top:50px;	
             background-color: white; /* White inner background */
