@@ -89,3 +89,39 @@
             max-width: 100%; /* Ensure the canvas doesn't exceed the container */
             height: auto; /* Maintain aspect ratio */
         }
+.dropdown {
+            margin-bottom: 20px;
+        }
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .button.green { background-color: green; color: white; }
+        .button.red { background-color: red; color: white; }
+        .button.yellow { background-color: yellow; }
+        .button.white { background-color: white; color: black; }
+        .button.blue { background-color: blue; color: white; }
+        .gain-slider {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .stop-button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff4d4d;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
